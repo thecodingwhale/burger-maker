@@ -1,1 +1,41 @@
 @import '~sanitize.css/sanitize.css';
+
+.button {
+  line-height: 1.8;
+  border-radius: 5px;
+  padding: 8px 12px;
+  &:hover {
+    opacity: .8;
+    cursor: pointer;
+  }
+  &--default {
+    background-color: #efefef;
+    border-color: #a0a0a0;
+  }
+}
+
+.button-group {
+  display: flex;
+
+  &--column {
+    flex-direction: column;
+    .button {
+      margin-bottom: 8px;
+    }
+  }
+}
+
+.cutting-board {
+  &__ingredients {
+    position: absolute;
+    z-index: 1;
+    /*background-color: yellow;*/
+    width: 250px;
+    padding: 8px 12px;
+  }
+  &__main-area {
+    /*background-color: red;*/
+    width: 100%;
+    height: 100vh;
+  }
+}
