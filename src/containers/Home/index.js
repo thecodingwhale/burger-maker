@@ -6,8 +6,29 @@ import {
 } from './constants';
 
 class Home extends React.Component {
-  selectIngredient = (key) => {
-    this.props.onAddIngredient(key);
+  selectIngredient = (ingredient) => {
+    this.props.onAddIngredient(ingredient);
+  }
+
+  renderBurger() {
+    if (this.props.burger.ingredients.length === 0) return null;
+    return (
+      <div className="burger">
+        {this.props.burger.ingredients.map((ingredient, index) => (
+          <div
+            key={index}
+            className="burger__ingredient"
+            style={{
+              backgroundColor: `${ingredient.color}`,
+            }}
+          >
+            <div className="burger__name">
+              {ingredient.name}
+            </div>
+          </div>
+        ))}
+      </div>
+    );
   }
 
   render() {
@@ -19,7 +40,7 @@ class Home extends React.Component {
               <button
                 key={index}
                 className="button button--default"
-                onClick={() => this.selectIngredient(ingredient.key)}
+                onClick={() => this.selectIngredient(ingredient)}
               >
                 {ingredient.name}
               </button>
@@ -27,7 +48,7 @@ class Home extends React.Component {
           </div>
         </div>
         <div className="cutting-board__main-area">
-
+          {this.renderBurger()}
         </div>
       </div>
     );
@@ -38,14 +59,15 @@ const mapStateToProps = state => {
   const { burger, ingredients } = state;
   return {
     ingredients,
+    burger,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAddIngredient: (key) => dispatch({
+    onAddIngredient: (ingredient) => dispatch({
       type: ADD_INGREDIENT,
-      key,
+      ingredient,
     }),
   };
 };

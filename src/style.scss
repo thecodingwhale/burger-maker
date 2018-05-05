@@ -1,5 +1,9 @@
 @import '~sanitize.css/sanitize.css';
 
+body {
+  font-family: 'Nunito', sans-serif;
+}
+
 .button {
   line-height: 1.8;
   border-radius: 5px;
@@ -16,7 +20,6 @@
 
 .button-group {
   display: flex;
-
   &--column {
     flex-direction: column;
     .button {
@@ -29,13 +32,48 @@
   &__ingredients {
     position: absolute;
     z-index: 1;
-    /*background-color: yellow;*/
     width: 250px;
     padding: 8px 12px;
   }
   &__main-area {
-    /*background-color: red;*/
     width: 100%;
     height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.burger {
+  &__ingredient {
+    position: relative;
+    width: 500px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 16px;
+    color: white;
+    &:first-child {
+      border-top-left-radius: 40px;
+      border-top-right-radius: 40px;
+    }
+    &:last-child {
+      border-bottom-left-radius: 40px;
+      border-bottom-right-radius: 40px;
+    }
+    &:not(:last-child) {
+      margin-bottom: 5px;
+    }
+  }
+  &__name {
+    position: absolute;
+    right: -30px;
+    background-color: #ff0076;
+    text-align: left;
+    min-width: 70px;
+    padding: 2px 8px;
+    color: white;
+    font-size: 11px;
   }
 }
