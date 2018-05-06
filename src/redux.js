@@ -1,6 +1,8 @@
 import update from 'immutability-helper';
 
-import { ADD_INGREDIENT } from './containers/Home/constants';
+import {
+  ADD_INGREDIENT,
+} from './containers/Home/constants';
 
 const initialState = {
   burger: {

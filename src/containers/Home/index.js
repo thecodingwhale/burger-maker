@@ -14,7 +14,7 @@ class Home extends React.Component {
     if (this.props.burger.ingredients.length === 0) return null;
     return (
       <div className="burger">
-        {this.props.burger.ingredients.map((ingredient, index) => (
+        {this.props.burger.ingredients.slice(0).reverse().map((ingredient, index) => (
           <div
             key={index}
             className="burger__ingredient"
@@ -29,6 +29,16 @@ class Home extends React.Component {
         ))}
       </div>
     );
+  }
+
+  renderBurgerStatus() {
+    if (this.props.burger.ingredients.length === 0) return null;
+    const setIsValidBurger = this.props.isBurgerValid ? ' burger-status__valid' : ' burger-status__error';
+    return (
+      <div className={`burger-status${setIsValidBurger}`}>
+        {this.props.isBurgerValid ? 'Valid Burger' : 'Invalid Burger'}
+      </div>
+    )
   }
 
   render() {
@@ -49,17 +59,35 @@ class Home extends React.Component {
         </div>
         <div className="cutting-board__main-area">
           {this.renderBurger()}
+          {this.renderBurgerStatus()}
         </div>
       </div>
     );
   }
 }
 
+const burgerValidator = (ingredients) => {
+  const EXCLUDE_KEY = 1;
+  const INGREDIENTS_DIVIDER = 4
+  const isMinimumIngredients = ingredients.length > INGREDIENTS_DIVIDER;
+  const isBunAlwaysFirstLast = isMinimumIngredients && (ingredients[0].key === EXCLUDE_KEY && ingredients[ingredients.length - 1].key === EXCLUDE_KEY);
+  const isBunPartitioned = ingredients
+    .filter((ingredient, index) => index % INGREDIENTS_DIVIDER === 0)
+    .map(ingredient => ingredient.key)
+    .every((value, i, array) => value === array[0]);
+  const isNoBunInBetween = ingredients
+    .filter((ingredient, index) => index % INGREDIENTS_DIVIDER !== 0)
+    .map(ingredient => ingredient.key)
+    .every((val, i, array) => array.indexOf(EXCLUDE_KEY) === -1);
+  return isMinimumIngredients && isBunPartitioned && isBunAlwaysFirstLast && isNoBunInBetween;
+};
+
 const mapStateToProps = state => {
   const { burger, ingredients } = state;
   return {
     ingredients,
     burger,
+    isBurgerValid: burgerValidator(burger.ingredients)
   };
 };
 

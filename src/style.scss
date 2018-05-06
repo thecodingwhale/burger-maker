@@ -41,10 +41,12 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
   }
 }
 
 .burger {
+  margin-bottom: 15px;
   &__ingredient {
     position: relative;
     width: 500px;
@@ -75,5 +77,24 @@ body {
     padding: 2px 8px;
     color: white;
     font-size: 11px;
+  }
+  &__status {
+    text-align: center;
+  }
+}
+
+.burger-status {
+  width: 200px;
+  line-height: 1.8;
+  padding: 8px 12px;
+  margin: 0 auto;
+  text-align: center;
+  &__valid {
+    background-color: green;
+    color: #ffffff;
+  }
+  &__error {
+    background-color: red;
+    color: #ffffff;
   }
 }
