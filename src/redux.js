@@ -2,6 +2,7 @@ import update from 'immutability-helper';
 
 import {
   ADD_INGREDIENT,
+  DELETE_INGREDIENT,
 } from './containers/Home/constants';
 
 const initialState = {
@@ -59,7 +60,15 @@ export function reducer(state = initialState, action) {
           ingredients: {$push: [action.ingredient]},
         }
       });
-    break;
+      break;
+    case DELETE_INGREDIENT:
+      return update(state, {
+        burger: {
+          ingredients: {$splice: [[action.index, 1]]},
+        }
+      });
+      return state;
+      break;
     default:
       return state;
   }

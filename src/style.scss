@@ -56,6 +56,10 @@ body {
     align-items: center;
     border-radius: 16px;
     color: white;
+    &:hover {
+      opacity: .9;
+      cursor: pointer;
+    }
     &:first-child {
       border-top-left-radius: 40px;
       border-top-right-radius: 40px;
@@ -70,16 +74,31 @@ body {
   }
   &__name {
     position: absolute;
-    right: -30px;
+    right: -10px;
     background-color: #ff0076;
     text-align: left;
-    min-width: 70px;
     padding: 2px 8px;
     color: white;
     font-size: 11px;
   }
   &__status {
     text-align: center;
+  }
+
+  &__options {
+    position: absolute;
+    left: -50px;
+    &__delete {
+      background-color: red;
+      padding: 2px 8px;
+      color: white;
+      font-size: 11px;
+      opacity: .1;
+      border-radius: 2px;
+      &:hover {
+        opacity: 1;
+      }
+    }
   }
 }
 

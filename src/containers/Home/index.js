@@ -2,10 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import {
-  ADD_INGREDIENT
+  ADD_INGREDIENT,
+  DELETE_INGREDIENT
 } from './constants';
 
 class Home extends React.Component {
+  deleteIngredient = (index) => {
+    this.props.onDeleteIngredient(index);
+  }
+
   selectIngredient = (ingredient) => {
     this.props.onAddIngredient(ingredient);
   }
@@ -24,6 +29,14 @@ class Home extends React.Component {
           >
             <div className="burger__name">
               {ingredient.name}
+            </div>
+            <div
+              className="burger__options"
+              onClick={() => this.deleteIngredient(index)}
+            >
+              <div className="burger__options__delete">
+                delete
+              </div>
             </div>
           </div>
         ))}
@@ -96,6 +109,10 @@ const mapDispatchToProps = dispatch => {
     onAddIngredient: (ingredient) => dispatch({
       type: ADD_INGREDIENT,
       ingredient,
+    }),
+    onDeleteIngredient: (index) => dispatch({
+      type: DELETE_INGREDIENT,
+      index
     }),
   };
 };
