@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 
 import {
   ADD_INGREDIENT,
-  DELETE_INGREDIENT
+  DELETE_INGREDIENT,
+  BURGER_STATUS,
 } from './constants';
 
-class Home extends React.Component {
+export class Home extends React.Component {
   deleteIngredient = (index) => {
     this.props.onDeleteIngredient(index);
   }
@@ -30,11 +31,11 @@ class Home extends React.Component {
             <div className="burger__name">
               {ingredient.name}
             </div>
-            <div
-              className="burger__options"
-              onClick={() => this.deleteIngredient(index)}
-            >
-              <div className="burger__options__delete">
+            <div className="burger__options">
+              <div
+                className="burger__options__delete"
+                onClick={() => this.deleteIngredient(index)}
+              >
                 delete
               </div>
             </div>
@@ -45,11 +46,19 @@ class Home extends React.Component {
   }
 
   renderBurgerStatus() {
-    if (this.props.burger.ingredients.length === 0) return null;
-    const setIsValidBurger = this.props.isBurgerValid ? ' burger-status__valid' : ' burger-status__error';
+    const { ingredients } = this.props.burger;
+    if (ingredients.length < 5) {
+      return (
+        <div className="burger-status">
+          {BURGER_STATUS.DEFAULT}
+        </div>
+      );
+    }
+    const isValidBurger = burgerValidator(ingredients);
+    const setIsValidBurger = isValidBurger ? ' burger-status__valid' : ' burger-status__error';
     return (
       <div className={`burger-status${setIsValidBurger}`}>
-        {this.props.isBurgerValid ? 'Valid Burger' : 'Invalid Burger'}
+        {isValidBurger ? BURGER_STATUS.VALID : BURGER_STATUS.INVALID}
       </div>
     )
   }
@@ -100,7 +109,6 @@ const mapStateToProps = state => {
   return {
     ingredients,
     burger,
-    isBurgerValid: burgerValidator(burger.ingredients)
   };
 };
 
