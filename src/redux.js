@@ -47,7 +47,7 @@ export const defaultIngredients = [{
   color: '#175200',
 }];
 
-const initialState = {
+export const initialState = {
   burger: {
     ingredients: []
   },
@@ -62,15 +62,12 @@ export function reducer(state = initialState, action) {
           ingredients: {$push: [action.ingredient]},
         }
       });
-      break;
     case DELETE_INGREDIENT:
       return update(state, {
         burger: {
           ingredients: {$splice: [[action.index, 1]]},
         }
       });
-      return state;
-      break;
     default:
       return state;
   }
